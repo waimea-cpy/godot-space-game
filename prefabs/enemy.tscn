@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://h20gxtw0mnj2"]
+
+[ext_resource type="Script" uid="uid://comlr3ecsmakj" path="res://scripts/enemy.gd" id="1_yfjof"]
+[ext_resource type="Texture2D" uid="uid://deboaso7q2ljp" path="res://kenney_space-shooter-redux/PNG/Enemies/enemyRed2.png" id="2_cypye"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_md0e3"]
+size = Vector2(50, 41)
+
+[node name="enemy" type="Area2D"]
+script = ExtResource("1_yfjof")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_cypye")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_md0e3")
+
+[node name="bomb_timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="bomb_timer" to="." method="_on_bomb_timer_timeout"]

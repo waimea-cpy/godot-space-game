@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://7jhr8uesj3c8"]
+
+[ext_resource type="Script" uid="uid://f07isoqwx7sk" path="res://scripts/explosion.gd" id="1_ah2ku"]
+[ext_resource type="Texture2D" uid="uid://4il2ccuyrmi1" path="res://kenney_space-shooter-redux/PNG/Effects/star1.png" id="1_psxt3"]
+
+[sub_resource type="Gradient" id="Gradient_ah2ku"]
+offsets = PackedFloat32Array(0, 0.709091, 1)
+colors = PackedColorArray(1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yp45b"]
+gradient = SubResource("Gradient_ah2ku")
+
+[sub_resource type="Curve" id="Curve_5nl6p"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.992701, 0.54878), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_j712m"]
+curve = SubResource("Curve_5nl6p")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rs1xr"]
+particle_flag_disable_z = true
+angle_min = 1.07288e-05
+angle_max = 90.0
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 30.0
+initial_velocity_max = 100.0
+angular_velocity_min = -300.0
+angular_velocity_max = 300.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_j712m")
+color_ramp = SubResource("GradientTexture1D_yp45b")
+
+[node name="explosion" type="Node2D"]
+script = ExtResource("1_ah2ku")
+
+[node name="particles" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 50
+texture = ExtResource("1_psxt3")
+one_shot = true
+speed_scale = 1.5
+explosiveness = 0.9
+process_material = SubResource("ParticleProcessMaterial_rs1xr")
